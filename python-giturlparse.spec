@@ -3,7 +3,7 @@ Version:        0.14.0
 Release:        %autorelease
 Summary:        Parse & rewrite git urls
 
-License:        ASL
+License:        Apache-2.0
 URL:            https://github.com/nephila/giturlparse
 Source:         %{url}/archive/%{version}/giturlparse-%{version}.tar.gz
 
@@ -25,9 +25,12 @@ Summary:        %{summary}
 %prep
 %autosetup -n giturlparse-%{version}
 
+# for local development---editable installs
+rm -f requirements*txt
+
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 
 %build
@@ -40,7 +43,7 @@ Summary:        %{summary}
 
 
 %check
-%tox
+%pyproject_check_import
 
 
 %files -n python3-giturlparse -f %{pyproject_files}
@@ -48,3 +51,4 @@ Summary:        %{summary}
 
 
 %changelog
+%autochangelog
