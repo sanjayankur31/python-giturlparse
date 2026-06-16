@@ -9,6 +9,7 @@ Source:         %{url}/archive/%{version}/giturlparse-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  %{py3_dist pytest}
 
 %global _description %{expand:
 Parse & rewrite git urls (supports GitHub, Bitbucket, FriendCode, Assembla,
@@ -39,11 +40,12 @@ rm -f requirements*txt
 
 %install
 %pyproject_install
-%pyproject_save_files giturlparse
+%pyproject_save_files -l giturlparse
 
 
 %check
 %pyproject_check_import
+%pytest
 
 
 %files -n python3-giturlparse -f %{pyproject_files}
